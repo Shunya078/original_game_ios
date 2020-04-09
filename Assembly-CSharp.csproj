@@ -70,7 +70,7 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
-    <Compile Include="Assets\MovePlayerScript.cs" />
+    <Compile Include="Assets\Scripts\MovePlayerScript.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/otsuboshunya/Desktop/MyUnityGame/Clusher/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
