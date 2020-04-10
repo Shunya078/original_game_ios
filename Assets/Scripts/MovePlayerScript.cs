@@ -1,60 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MovePlayerScript : MonoBehaviour
 {
-    float horizontalMove = 0f;
-    float verticalMove = 0f;
-    float runSpeed = 0.1f;
+    float horizontalView = 0f;
+    float verticalView = 0f;
+    float runSpeed = 0.05f;
+
+    NavMeshAgent agent;
+    Transform cameraTransform;
 
     public Joystick joystick;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        agent = GetComponent<NavMeshAgent>();
+        cameraTransform = Camera.main.transform;
+        transform.position = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float pos_x = transform.position.x;
-        float pos_z = transform.position.z;
-        horizontalMove = joystick.Horizontal * runSpeed;
-        verticalMove = joystick.Vertical * runSpeed;
-        transform.position += new Vector3(horizontalMove,0,verticalMove);
-        if(pos_x >= 4.4f)
+        horizontalView = joystick.Horizontal;
+        verticalView = joystick.Vertical;
+
+        var cameraForward = Vector3.Scale(cameraTransform.forward, new Vector3(1, 0, 1)).normalized;
+         
+        Vector3 movement = transform.forward * runSpeed;
+        Vector3 direction = cameraForward * verticalView + cameraTransform.right * horizontalView;
+
+        transform.rotation = Quaternion.LookRotation(direction);
+        if(Mathf.Abs(horizontalView) > 0 || Mathf.Abs(verticalView) > 0)
         {
-            runSpeed = 0;
-            if(joystick.Horizontal < 0)
-            {
-                runSpeed = 0.1f;
-            }
-        }
-        if (pos_x <= -4.4f)
-        {
-            runSpeed = 0;
-            if (joystick.Horizontal > 0)
-            {
-                runSpeed = 0.1f;
-            }
-        }
-        if (pos_z >= 4.4f)
-        {
-            runSpeed = 0;
-            if (joystick.Vertical < 0)
-            {
-                runSpeed = 0.1f;
-            }
-        }
-        if (pos_z <= -4.4f)
-        {
-            runSpeed = 0;
-            if (joystick.Vertical > 0)
-            {
-                runSpeed = 0.1f;
-            }
+            agent.Move(movement);
         }
     }
 }
