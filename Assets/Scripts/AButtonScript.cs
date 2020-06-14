@@ -2,42 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AButtonScript : MonoBehaviour
+namespace ButtonFolder
 {
-    bool isPress = false;
-
-    float pressedTime = 0f;
-
-    GameObject player;
-    PlayerScript playerScript;
-
-    // Start is called before the first frame update
-    void Start()
+    public class AButtonScript : MonoBehaviour
     {
-        player = GameObject.Find("Player");
-        playerScript = player.GetComponent<PlayerScript>();
-    }
+        bool isPress = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log(pressedTime);
-        if (isPress)
+        float pressedTime = 0f;
+
+        GameObject player;
+        PlayerScript playerScript;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            pressedTime += Time.deltaTime;
-            if(pressedTime > 3f)
+            player = GameObject.Find("Player");
+            playerScript = player.GetComponent<PlayerScript>();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            Debug.Log(pressedTime);
+            if (isPress)
             {
-                playerScript.brokenBool = true;
+                pressedTime += Time.deltaTime;
+                if (pressedTime > 3f)
+                {
+                    playerScript.brokenBool = true;
+                }
             }
         }
-    }
-    public void AButtonDown()
-    {
-        isPress = true;
-    }
-    public void AButtonUp()
-    {
-        isPress = false;
-        pressedTime = 0f;
+        public void AButtonDown()
+        {
+            isPress = true;
+        }
+        public void AButtonUp()
+        {
+            isPress = false;
+            pressedTime = 0f;
+        }
     }
 }

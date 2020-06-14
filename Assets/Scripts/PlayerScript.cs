@@ -24,7 +24,7 @@ public class PlayerScript : MonoBehaviour
     }
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Broken")
+        if (col.gameObject.tag == "Broken")
         {
             buttonA.enabled = true;
         }
@@ -34,9 +34,11 @@ public class PlayerScript : MonoBehaviour
     {
         if (brokenBool)
         {
-            if(col.gameObject.tag == "Broken")
-            Destroy(col.gameObject);
-            buttonA.enabled = false;
+            if (col.gameObject.tag == "Broken")
+            {
+                Destroy(col.gameObject);
+                buttonA.enabled = false;
+            }
         }
     }
 }
